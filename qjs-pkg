@@ -21,11 +21,14 @@ function build () {
     local LOCAL_PACKAGE_PATH=$3
 
     # compile libuv
+    cd libuv
     sh autogen.sh
     ./configure
     make
 
     # generate cffi bindings
+    cd $ENV_PATH
+
     ./qjs-cffi \
         -fc-cflags="-I$CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void" \
         -sizeof-cflags="-I$CACHE_PACKAGE_PATH/libuv/include" \
@@ -45,7 +48,7 @@ function install () {
 
     cp $ENV_PATH/$CACHE_PACKAGE_PATH/.libs/libuv.so $ENV_PATH/$LOCAL_PACKAGE_PATH/libuv.so
     cp $ENV_PATH/$CACHE_PACKAGE_PATH/quickjs-uv-cffi/uv.js $ENV_PATH/$LOCAL_PACKAGE_PATH/uv.js
-    
+
     echo install $PACKAGE_NAME $PACKAGE_VER
 }
 
