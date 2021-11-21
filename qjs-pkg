@@ -30,12 +30,10 @@ function build () {
     # generate cffi bindings
     cd $ENV_PATH
 
-    # -fc-cflags="-I.cache/quickjs-uv-cffi/libuv/include -D__GNUC__=3 -DDIR=void" \
-
     ./qjs-cffi \
+        -fc-cflags=" -I$CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void " \
         -sizeof-cflags="-I$CACHE_PACKAGE_PATH/libuv/include" \
         -sizeof-include="uv.h" \
-        -fc-cflags="-I$CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void" \
         -i $CACHE_PACKAGE_PATH/libuv/include/uv.h \
         -o $CACHE_PACKAGE_PATH/quickjs-uv-cffi/uv.js \
         -l $LOCAL_PACKAGE_PATH/libuv.so
