@@ -34,8 +34,8 @@ function build () {
     local SIZEOF_CFLAGS="-I$CACHE_PACKAGE_PATH/libuv/include"
 
     ./qjs-cffi \
-        -fc-cflags=$FC_CFLAGS \
-        -sizeof-cflags=$SIZEOF_CFLAGS \
+        -fc-cflags='$FC_CFLAGS' \
+        -sizeof-cflags='$SIZEOF_CFLAGS' \
         -sizeof-include="uv.h" \
         -i $CACHE_PACKAGE_PATH/libuv/include/uv.h \
         -o $CACHE_PACKAGE_PATH/quickjs-uv-cffi/uv.js \
