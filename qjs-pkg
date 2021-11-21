@@ -32,7 +32,7 @@ function build () {
         # --fc-cflags="-I $CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void" \
 
     ./qjs-cffi \
-        -fc-cflags $("-I$CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void") \
+        -fc-cflags '"-I$CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void"' \
         -sizeof-cflags "-I$CACHE_PACKAGE_PATH/libuv/include" \
         -sizeof-include "uv.h" \
         -i $CACHE_PACKAGE_PATH/libuv/include/uv.h \
