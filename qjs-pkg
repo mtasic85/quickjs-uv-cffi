@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -x
+set -x
 
 PACKAGE_NAME="quickjs-uv-cffi"
 PACKAGE_VER="0.1.0"
@@ -32,7 +32,7 @@ function build () {
         # --fc-cflags="-I $CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void" \
 
     ./qjs-cffi \
-        -fc-cflags "-I$CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void" \
+        -fc-cflags $("-I$CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void") \
         -sizeof-cflags "-I$CACHE_PACKAGE_PATH/libuv/include" \
         -sizeof-include "uv.h" \
         -i $CACHE_PACKAGE_PATH/libuv/include/uv.h \
@@ -65,4 +65,4 @@ function uninstall () {
 
 # dispatch function with args without $0 and $1
 echo $($1 ${@:2})
-# set +x
+set +x
