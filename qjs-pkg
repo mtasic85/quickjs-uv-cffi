@@ -10,6 +10,7 @@ function prepare () {
     local CACHE_PACKAGE_PATH=$2
     local LOCAL_PACKAGE_PATH=$3
 
+    # fetch submodules
     git submodule update --init --recursive
 
     echo prepare $PACKAGE_NAME $PACKAGE_VER
@@ -47,6 +48,7 @@ function install () {
     local CACHE_PACKAGE_PATH=$2
     local LOCAL_PACKAGE_PATH=$3
 
+    # copy
     cp $ENV_PATH/$CACHE_PACKAGE_PATH/libuv/.libs/libuv.so $ENV_PATH/$LOCAL_PACKAGE_PATH/libuv.so
     cp $ENV_PATH/$CACHE_PACKAGE_PATH/quickjs-uv-cffi/uv.js $ENV_PATH/$LOCAL_PACKAGE_PATH/uv.js
 

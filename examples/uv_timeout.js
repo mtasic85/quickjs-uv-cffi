@@ -11,7 +11,7 @@ import {
   malloc,
   free,
   sizeof_uv_timer_t
-} from 'local/quickjs-fltk-cffi/uv.js';
+} from 'local/quickjs-uv-cffi/uv.js';
 
 let loop = uv_default_loop();
 
