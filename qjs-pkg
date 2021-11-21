@@ -1,0 +1,62 @@
+#!/bin/bash
+
+PACKAGE_NAME="quickjs-uv-cffi"
+PACKAGE_VER="0.1.0"
+
+function prepare () {
+    # args
+    local ENV_PATH=$1
+    local CACHE_PACKAGE_PATH=$2
+    local LOCAL_PACKAGE_PATH=$3
+
+    git submodule update --init --recursive
+
+    echo prepare $PACKAGE_NAME $PACKAGE_VER
+}
+
+function build () {
+    # args
+    local ENV_PATH=$1
+    local CACHE_PACKAGE_PATH=$2
+    local LOCAL_PACKAGE_PATH=$3
+
+    # compile libuv
+    sh autogen.sh
+    ./configure
+    make
+
+    # generate cffi bindings
+    ./qjs-cffi \
+        -fc-cflags="-I$CACHE_PACKAGE_PATH/libuv/include -D__GNUC__=3 -DDIR=void" \
+        -sizeof-cflags="-I$CACHE_PACKAGE_PATH/libuv/include" \
+        -sizeof-include="uv.h" \
+        -i $CACHE_PACKAGE_PATH/libuv/include/uv.h \
+        -o $CACHE_PACKAGE_PATH/quickjs-uv-cffi/uv.js \
+        -l $LOCAL_PACKAGE_PATH/libuv.so
+
+    echo build $PACKAGE_NAME $PACKAGE_VER
+}
+
+function install () {
+    # args
+    local ENV_PATH=$1
+    local CACHE_PACKAGE_PATH=$2
+    local LOCAL_PACKAGE_PATH=$3
+
+    cp $ENV_PATH/$CACHE_PACKAGE_PATH/.libs/libuv.so $ENV_PATH/$LOCAL_PACKAGE_PATH/libuv.so
+    cp $ENV_PATH/$CACHE_PACKAGE_PATH/quickjs-uv-cffi/uv.js $ENV_PATH/$LOCAL_PACKAGE_PATH/uv.js
+    
+    echo install $PACKAGE_NAME $PACKAGE_VER
+}
+
+function uninstall () {
+    # args
+    local ENV_PATH=$1
+    local CACHE_PACKAGE_PATH=$2
+    local LOCAL_PACKAGE_PATH=$3
+
+    echo uninstall $PACKAGE_NAME $PACKAGE_VER
+}
+
+# dispatch function with args without $0 and $1
+echo $($1 ${@:2})

@@ -10,7 +10,7 @@ import {
   malloc,
   free,
   sizeof_uv_timer_t
-} from './quickjs-libuv/uv.js';
+} from 'local/quickjs-fltk-cffi/uv.js';
 
 function cb(timer) {
   console.log('cb:', timer);
