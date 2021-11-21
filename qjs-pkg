@@ -21,11 +21,11 @@ function build () {
     local CACHE_PACKAGE_PATH=$2
     local LOCAL_PACKAGE_PATH=$3
 
-    # compile libuv
-    cd libuv
-    sh autogen.sh
-    ./configure
-    make
+    # # compile libuv
+    # cd libuv
+    # sh autogen.sh
+    # ./configure
+    # make
 
     # generate cffi bindings
     cd $ENV_PATH
